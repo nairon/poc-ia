@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPE - Prova de conceito</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+            <h2>Envio de Arquivo</h2>
+            {% if success_message %}
+                <p class="success-message">{{ success_message }}</p>
+            {% endif %}
+            <form action="http://localhost:5000/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
