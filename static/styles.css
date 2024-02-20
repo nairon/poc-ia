@@ -58,3 +58,12 @@ button[type="submit"]:hover {
     border-radius: 4px;
     margin-top: 10px;
 }
+
+button[type="submit"]:disabled {
+    background-color: #ccc; /* Altere a cor de fundo para uma cor mais clara */
+    cursor: not-allowed; /* Altera o cursor para indicar que não está disponível */
+}
+
+button[type="submit"]:disabled:hover {
+    background-color: #ccc; /* Mantém a mesma cor de fundo quando o botão é desabilitado e o cursor está sobre ele */
+}

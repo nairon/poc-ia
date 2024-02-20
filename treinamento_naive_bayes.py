@@ -1,6 +1,7 @@
-import sys
-import csv
 import pandas as pd
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
@@ -8,6 +9,23 @@ from sklearn.pipeline import make_pipeline
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from joblib import dump, load
+
+# print('Baixando as stopwords da NLTK') #(executar apenas uma vez)
+# nltk.download('stopwords')
+# nltk.download('punkt')
+
+print('Inicializando as stopwords')
+stop_words = set(stopwords.words('portuguese'))
+
+# Função para pré-processar o texto
+def preprocess_text(text):
+    # Tokenização
+    tokens = word_tokenize(text.lower())
+    # Remoção das stopwords e de tokens com apenas um caractere
+    tokens = [token for token in tokens if token not in stop_words and len(token) > 1]
+    # Reconstroi o texto após remoção das stopwords
+    preprocessed_text = ' '.join(tokens)
+    return preprocessed_text
 
 def contaNaNTexto():
     print('Contando valores NaN na coluna TEXTO')
@@ -39,10 +57,8 @@ print('\nExplorando os rótulos de classificação')
 print(df['COD_ASSUNTO_CLASSIFICACAO'].value_counts())
 print(df['LABEL'].value_counts())
 
-# sys.exit()
-
 print('Separando os dados em features (X) e labels (y)')
-X = df['TEXTO']
+X = df['TEXTO']#.apply(preprocess_text)  # Aplica a função de pré-processamento
 y = df['LABEL']
 
 print('Dividindo os dados em conjunto de treinamento e conjunto de teste')
@@ -61,5 +77,8 @@ print('Calculando a precisão do modelo')
 accuracy = accuracy_score(y_test, y_pred)
 print(f'Acurácia do modelo: {accuracy}')
 
-# Salvar o modelo treinado
-# joblib.dump(model, 'modelo_classificacao.pkl')
+print('Salvando o modelo treinado')
+dump(model, 'modelo_naive_bayes.pkl')
+
+# resultado retirando stopswords 0.79
+# resultado sem retirar stopswords 0.80

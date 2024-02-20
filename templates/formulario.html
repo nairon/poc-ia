@@ -13,11 +13,19 @@
             {% if success_message %}
                 <p class="success-message">{{ success_message }}</p>
             {% endif %}
-            <form action="http://localhost:5000/upload" method="post" enctype="multipart/form-data">
+            <form id="upload-form" action="http://localhost:5000/upload" method="post" enctype="multipart/form-data">
                 <input type="file" name="file">
-                <button type="submit">Enviar</button>
+                <button type="submit" id="submit-btn">Enviar</button>
             </form>
         </div>
     </div>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            var submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Aguarde...';
+        });
+    </script>
 </body>
 </html>
