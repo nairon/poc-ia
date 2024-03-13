@@ -45,7 +45,7 @@ print('Criando a coluna LABEL com o LabelEncoder')
 df['LABEL'] = label_encoder.fit_transform(df['COD_ASSUNTO_CLASSIFICACAO'])
 
 print('Salvando o LabelEncoder em um arquivo')
-dump(label_encoder, 'label_encoder.joblib')
+dump(label_encoder, 'label_encoder_nb.joblib')
 
 print('\nVisualizar as primeiras linhas do dataframe')
 print(df.head())
@@ -81,4 +81,4 @@ print('Salvando o modelo treinado')
 dump(model, 'modelo_naive_bayes.pkl')
 
 # resultado retirando stopswords 0.79
-# resultado sem retirar stopswords 0.80
+# resultado sem retirar stopswords 0.8018867924528302

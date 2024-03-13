@@ -8,9 +8,13 @@ app = Flask(__name__)
 app.secret_key = 'secret_key'
 
 # Carregando o modelo treinado
-model = load('modelo_naive_bayes.pkl')
+model = load('modelo_gbm.joblib')
 # Carregando o LabelEncoder
-label_encoder = load('label_encoder.joblib')
+label_encoder = load('label_encoder_gbm.joblib')
+# Carregando o CountVectorizer
+vectorizer = load('count_vectorizer_gbm.joblib')
+
+print('classes: ', label_encoder.classes_)
 
 @app.route('/formulario')
 def formulario():
@@ -44,9 +48,14 @@ def upload_file():
         full_text = extrair_texto(file)
 
         # Realiza a previsão com o modelo
+
+        print('Vetorizando o texto')
+        text_vectorized = vectorizer.transform([full_text])
         print('Realizando o predict do texto')
-        prediction = model.predict([full_text])
+        prediction = model.predict(text_vectorized)
+        print('prediction', prediction)
         prediction_list = prediction.tolist()
+        print('prediction_list', prediction_list)
 
         # Traduzir o label predito de volta para o código original
         original_label = label_encoder.inverse_transform(prediction_list)
@@ -56,7 +65,7 @@ def upload_file():
         print(original_label)
 
         print('Realizando a previsão das probabilidades para cada classe')
-        probabilities = model.predict_proba([full_text])
+        probabilities = model.predict_proba(text_vectorized)
 
         # Prepara a lista de resultados com probabilidades
         results = []

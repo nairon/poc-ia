@@ -25,7 +25,7 @@ print('Criando a coluna LABEL com o LabelEncoder')
 df['LABEL'] = label_encoder.fit_transform(df['COD_ASSUNTO_CLASSIFICACAO'])
 
 print('Salvando o LabelEncoder em um arquivo')
-dump(label_encoder, 'label_encoder.joblib')
+dump(label_encoder, 'label_encoder_lstm.joblib')
 
 print('\nVisualizar as primeiras linhas do dataframe')
 print(df.head())
@@ -70,7 +70,6 @@ model = Sequential([
 print('Compilando o modelo')
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-
 print('Treinando o modelo')
 model.fit(X_train_padded, y_train, epochs=10, batch_size=64, validation_data=(X_test_padded, y_test))
 
@@ -82,4 +81,4 @@ print(f'Acurácia do modelo: {accuracy}')
 print('Salvando o modelo treinado')
 model.save('modelo_lstm.keras')
 
-# resultado 0.6
+# resultado 0.5849056839942932
