@@ -9,7 +9,10 @@
 <body>
     <div class="container">
         <div class="form-wrapper">
-            <h2>Envio de Arquivo</h2>
+            <div style="text-align: center">
+                <img style="width:200px" src="{{ url_for('static', filename='logo_stj.svg') }}">
+            </div>
+            <h2>Prova de Conceito CPE</h2>
             {% if success_message %}
                 <p class="success-message">{{ success_message }}</p>
             {% endif %}

@@ -52,9 +52,9 @@ button[type="submit"]:hover {
 }
 
 .success-message {
-    color: #4CAF50;
+    color: #3e837f;
     padding: 10px;
-    border: 1px solid #4CAF50;
+    border: 1px solid #3e837f;
     border-radius: 4px;
     margin-top: 10px;
 }

@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, mean_absolute_error
 from sklearn.preprocessing import LabelEncoder
 from joblib import dump
 
@@ -46,7 +46,12 @@ print('Calculando a acurácia')
 accuracy = accuracy_score(y_test, y_pred)
 print(f'Acurácia do modelo Gradient Boosting Machines (GBM): {accuracy}')
 
+print('Calculando o MAE')
+mae = mean_absolute_error(y_test, y_pred)
+print(f'O MAE do modelo Gradient Boosting Machines (GBM): {mae}')
+
 print('Salvando modelo em um arquivo')
 dump(gbm_classifier, 'modelo_gbm.joblib')
 
 # resultado 0.839622641509434 (n_estimators = 10)
+# O MAE do modelo Gradient Boosting Machines (GBM): 0.5220125786163522
